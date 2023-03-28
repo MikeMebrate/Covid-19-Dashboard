@@ -851,7 +851,7 @@ function updateChartWorld() {
   let m = 0;
 
   for (let j = 5; j < 12; j++) {
-    for (let i = 0; i < covidWorldSummaryData.length-1; i++) {
+    for (let i = 0; i < covidWorldSummaryData.length; i++) {
       let constrate = covidWorldSummaryData[i].Date.slice(0, 7);
       if (constrate == `2021-${m}${Number(j + 1)}`) {
         sumOfMonth = Number(covidWorldSummaryData[i].NewConfirmed);
@@ -876,7 +876,7 @@ function updateChartWorld() {
 
   m = 0;
   for (let j = 0; j < 12; j++) {
-    for (let i = 0; i < covidWorldSummaryData.length-1; i++) {
+    for (let i = 0; i < covidWorldSummaryData.length; i++) {
       let constrate = covidWorldSummaryData[i].Date.slice(0, 7);
       if (constrate == `2022-${m}${Number(j + 1)}`) {
         sumOfMonth = Number(covidWorldSummaryData[i].NewConfirmed);
@@ -905,7 +905,7 @@ function updateChartWorld() {
 
   m = 0;
   for (let j = 0; j < 3; j++) {
-    for (let i = 0; i < covidWorldSummaryData.length-1; i++) {
+    for (let i = 0; i < covidWorldSummaryData.length; i++) {
       let constrate = covidWorldSummaryData[i].Date.slice(0, 7);
       if (constrate == `2023-${m}${Number(j + 1)}`) {
         sumOfMonth = Number(covidWorldSummaryData[i].NewConfirmed);
