@@ -1,0 +1,172 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COVID-19 Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-md sticky-top navbar-light shadow-lg bg-light"
+    >
+      <div class="container-fluid">
+        <a href="index.html" class="navbar-brand ms-3"
+          ><img
+            src="image/covid-19-logo.png"
+            class="img-fluid"
+            width="150px"
+            alt=""
+        /></a>
+        <button
+          type="button"
+          class="navbar-toggler"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbar">
+          <div class="navbar-nav">
+            <a href="index.html" class="nav-link ms-3 active">Home</a>
+            <a href="#overview" class="nav-link ms-3">Overview</a>
+            <div class="ms-3 me-3 d-flex">
+              <datalist id="searchList"> </datalist>
+
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                name=""
+                list="searchList"
+                autocomplete="off"
+                id="searchInput"
+                onkeydown="search(null)"
+                ;
+                placeholder="Search by Country"
+              />
+              <button
+                type="button"
+                value="clicked"
+                class="btn btn-primary ms-2 rounded"
+                onclick="search(this.value)"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div id="bodychange">
+      <div class="container-fluid mt-5">
+        <div class="row text-white justify-content-center gap-5">
+          <div
+            class="col-md-6 card bg-primary text-center border-0 shadow-lg"
+            style="max-width: 15rem"
+          >
+            <p class="p-0 m-0">Total Case</p>
+            <h3 id="totalCase" class="fw-normal text-white fw-bold"></h3>
+          </div>
+
+          <div
+            class="col-md-6 card bg-primary text-center border-0 shadow-lg"
+            style="max-width: 15rem"
+          >
+            <p class="p-0 m-0">Total Death</p>
+            <h3 id="totalDeath" class="fw-normal text-white fw-bold"></h3>
+          </div>
+        </div>
+      </div>
+      <div class="container mt-4">
+        <div class="row mt-3">
+          <div
+            class="col-md-4 shadow-lg mt-2"
+            style="max-height: 400px; overflow: scroll"
+          >
+            <div
+              class="d-flex justify-content-between mt-3 fw-bold text-primary"
+            >
+              <p>Country</p>
+              <p>Total Case</p>
+              <p>Total Death</p>
+            </div>
+            <hr class="m-0" />
+            <div class="row" id="totalCountryTable"></div>
+          </div>
+          <!--BAR-->
+          <div class="col-md-8 shadow-lg mt-2">
+            <div id="worldchart"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="overview" class="container">
+        <p class="mt-4 text-primary fw-bold text-center">
+          Globally, as of 6:06pm CET, 21 March 2023, there have been
+          <span class="pTotalCase"></span> confirmed cases of COVID-19,
+          including <span class="pTotalDeath"></span> deaths, reported to WHO.
+          As of 20 March 2023, a total of 13,260,401,200 vaccine doses have been
+          administered.
+        </p>
+      </div>
+      <div class="container mt-3">
+        <h3>Global Situation</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="border" id="chartDetailCase"></div>
+          </div>
+          <div class="col-md-6">
+            <div class="border" id="chartDetailDeath"></div>
+          </div>
+        </div>
+
+        <div class="row mt-5 gap-5 justify-content-center">
+          <div class="col-md-5 border">
+            <div id="chartDetailYearCase"></div>
+          </div>
+          <div class="col-md-5 border">
+            <div id="chartDetailYearDeath"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mb-0 pb-1 shadow-lg d-flex p-0 m-0  flex-wrap bg-ligh justify-content-between align-items-center py-3 my-4 border-top" style="margin-bottom: -500px;">
+      <p class="col-md-4  mb-0 text-muted">© 2021 Company, Inc</p>
+  
+      <a href="index.html" class="col-md-4  d-flex justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <img src="image/covid-19-logo.png" style="width: 100px;" alt="">
+      </a>
+  
+      <ul class="nav col-md-4 justify-content-end">
+        <li class="nav-item"><a href="index.html" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Overview</a></li>
+      </ul>
+    </footer>
+  </body>
+  <script src="script.js"></script>
+</html>
